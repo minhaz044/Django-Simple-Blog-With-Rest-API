@@ -1,0 +1,37 @@
+{%  extends 'menu.html' %}
+
+{% block content %}
+
+
+
+
+
+
+
+<!----------------------------------Post Delete section-------------------------->
+
+
+
+<div class="col-sm-9 col-md-9 pt-10">
+  <div class="col-md-9"> 
+    <div class="container">
+      <div class="row">
+       <div class="col-md-1"></div>
+       <div class="col-md-10 mt-3">
+        <h3>Do You Really Want to delete "<small> {{  post.title }}</small> " this Post?</h3>
+        <form method="POST" >
+          {% csrf_token %}
+          <input type="submit" name="submit" value="YES" class="btn btn-danger">
+        </form>
+        <a  class=" btn btn-success" href="{{post.get_absolute_url}}">Cancel</a>
+      </div>
+    </div>
+  </div> 
+</div>     
+</div>
+
+
+
+<!------------------------End of post Delete section ------------------------------>
+
+{% endblock%}

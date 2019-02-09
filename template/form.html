@@ -1,0 +1,19 @@
+
+{% if messages %}
+{% for message in messages %}
+
+{{message}}
+
+{% endfor %}
+{% endif %}
+
+
+
+
+<!--------------------------
+
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Submit</button>
+</form>

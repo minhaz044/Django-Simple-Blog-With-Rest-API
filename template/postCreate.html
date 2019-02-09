@@ -1,0 +1,37 @@
+{%  extends 'menu.html' %}
+
+{% block content %}
+{%  load crispy_forms_tags %}
+
+
+
+
+
+
+
+<!----------------------------------Post Create section-------------------------->
+
+
+
+<div class="col-sm-9 col-md-9 pt-10">
+  <div class="col-md-9"> 
+    <div class="container">
+      <div class="row">
+       <div class="col-md-3"></div>
+       <div >
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" name="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div> 
+</div>     
+</div>
+
+
+
+<!------------------------End of post create section ------------------------------>
+
+{% endblock%}

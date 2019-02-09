@@ -1,0 +1,72 @@
+{%  extends 'menu.html' %}
+
+{% block content %}
+{%  load crispy_forms_tags %}
+
+
+
+
+
+
+
+<!----------------------------------Post section-------------------------->
+
+
+
+<div class="col-sm-9 col-md-9 pt-10">
+  <div class="col-md-9"> 
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <h4 class="text header"> {{ post.title}} </h4></br>
+          <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 200px; width: 100%; display: block;" src="{{post.image.url}}" data-holder-rendered="true">          
+          <p class="context"> {{  post.description  }}</p>
+          <span class="float-right"><strong>Author:{{post.author|upper}}</strong></span>
+          {% if request.user == post.author %}
+          <a href="{{post.get_delete_url}}" class="btn btn-warning">Delete</a>
+          <a href="{{post.get_update_url}}" class="btn btn-primary">Update</a>
+          {%endif%}
+          <!------------------------------Comment Section---------------------------->
+          <div class='comment'>
+            <form method="POST" class="mt-5">
+              {% csrf_token%}
+              {{  comment_form|crispy  }}
+              <input type="submit" name="submit" value="Comment" class="btn btn-success">
+            </form>
+            {% for comment in post.comment %}
+            <blockquote >
+              <p>"{{ comment }}"</p>
+              <footer><small>{{ comment.user.username }} <a class="reply" href="">Reply</a></small></footer>
+            </hr>
+
+            </blockquote>
+          {% for subcomment in comment.sub_comment %}
+
+            <blockquote  >
+              <p>"{{ subcomment }}" </p>
+              <footer><small>{{ subcomment.user.username }}</small></footer>
+            </hr>
+          </blockquote>
+          {%endfor%}
+          <form method="POST" style="display: none;">
+            {% csrf_token%}
+            {{  comment_form|crispy  }}
+            <input type="submit" name="submit" value="Reply" class="btn btn-success">
+          </form>
+
+      
+        {%endfor%}
+      </div>
+      <!-----------------------------End of Comment Section---------------------->
+    </div>
+  </div>
+</div> 
+</div>     
+</div>
+
+
+
+<!------------------------End of post section ------------------------------>
+
+{% endblock%}

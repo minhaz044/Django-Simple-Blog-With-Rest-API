@@ -1,0 +1,86 @@
+{%  extends 'menu.html' %}
+
+{% block content %}
+<div class="col-md-2 "></div>
+
+<div class="col-sm-9 col-md-9 pt-10">
+  <!----------------------------- jumbotron Section-------------------------->
+  {% with object_list.0 as firstpost  %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading"> {{ firstpost.title }} </h1>
+      <p class="lead text-muted context">
+       {{ firstpost.description|truncatewords:30 }}
+       <a href=" {{firstpost.get_absolute_url}}"><small> .....Continue Reading</small></a>
+     </p>
+
+
+   </div>
+ </section>  
+ {%endwith%}      
+ <!-----------------------------End of jumbotron Section---------------------->
+
+ <div class="album  bg-light">
+  <div class="container">
+    <div class="row">
+      <!---------------------------------Post section------------------------------>
+      {% for post in object_list|slice:"1:"%}
+      <div class="col-md-4">
+        <a href="{{ post.get_absolute_url }}">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 200px; width: 100%; display: block;" src="{{ post.image.url}}" data-holder-rendered="true">
+            <div class="card-body">
+              <p class="card-text"> <a href="{{ post.get_absolute_url }}">{{ post.title}} </a> </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+      <!------------------------End of post section ------------------------------>
+      <!------------------------Add New Post section------------------------------>
+      <div class="col-md-4">
+        <a href="/post/create/">
+          <div class="card mb-4 box-shadow">
+            <h1> Add New Post</h1>
+            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 170px; width: 100%; display: block;" src="/static/images/postplus.png" data-holder-rendered="true">
+            <div class="card-body">
+              <p class="card-text"> <a href="/post/create/">{{ post.title}} </a> </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!------------------------End of Add New post section ------------------------------>
+    </div>
+  </div>
+</div>
+
+
+
+<!------------------------Pagination section ------------------------------>
+
+<div class="pagination " style="margin-left: 45%">
+  <span class="step-links">
+    {% if object_list.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ object_list.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+    </span>
+
+    {% if object_list.has_next %}
+    <a href="?{{page_name}}={{ object_list.next_page_number }}">next</a>
+    <a href="?{{page_name}}={{ object_list.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+<!------------------------End of Pagination section ---------------------------->
+
+
+
+</div>
+
+
+{% endblock%}
